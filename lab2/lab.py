@@ -21,6 +21,8 @@ class Worker:
     @level.setter
     def level(self, lvl: int):
         """7 is a good start but you cant get higher then 17"""
+        if not isinstance(lvl, int):
+            raise ValueError
         if  lvl < 7 or lvl > 17:
             raise ValueError
         else:
@@ -35,9 +37,10 @@ class Worker:
                 self._bonus =  0.2
 
     @per_rew.setter
-    
     def per_rew(self, pr: float):
         """Like in school from 1 to 5"""
+        if not isinstance(pr, float):
+            raise ValueError
         if  pr < 1.0 or pr > 5.0:
             raise ValueError
         else:
@@ -61,6 +64,8 @@ class Worker:
         """
         More then 70k but less then 750k
         """
+        if not isinstance(pay, int):
+            raise ValueError
         if  pay < 70000 or pay > 750000:
             raise ValueError
         else:
@@ -73,7 +78,7 @@ class Worker:
 if __name__ == "__main__":
     worker = Worker()
     # Wow, 0 payment job is the worst, can you change it for me please ?
-    worker.payment = 0
-    worker.level = 7
-    worker.per_rew = 5.0
+    worker.payment = 100000
+    worker.level = 10
+    worker.per_rew = 2.5
     print(worker.bonus())

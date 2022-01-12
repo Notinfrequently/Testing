@@ -1,22 +1,14 @@
 import pytest
 from lab import Worker
 
-# set up test class
-
-
-def test_assert_error():
-    with pytest.raises(ValueError) as exp:
-        test_class = Worker()
-        test_class.level = 123
-        assert exp.value == ValueError
-        del test_class
-
 def test_default_values():
+    """Test bonus calculation with default values"""
     test_class = Worker()
     assert test_class.bonus() == 3500
     del test_class
 
 def test_set_values():
+    """Test setters for values"""
     test_class = Worker()
     test_class.payment = 100000
     test_class.per_rew = 4.0
@@ -30,10 +22,28 @@ fine_data = [
     (350000,2.5,10,52500)
 ]
 
+# equvilance classes
+"""
+L - most left accepted value
+R - most right accepted value
+1. [-inf, L]
+2. [L, R]
+3. [R, +inf]
+4. Any type that differs from accepted type in setter
+"""
+
 setters_data = [
-    (0,1.0,7,ValueError()),
-    (750000,0,17,ValueError()),
-    (350000,2.5,1234567890,ValueError())
+    (-1, 2.5, 5, ValueError()),
+    (800000, 2.5, 10, ValueError()),
+    (75000.0, 2.5, 10, ValueError()),
+
+    (100000, -2.5, 10, ValueError()),
+    (100000, 8.0, 10, ValueError()),
+    (100000, 5, 10, ValueError()),
+
+    (100000, 2.5, -5, ValueError()),
+    (100000, 2.5, 20, ValueError()),
+    (100000, 2.5, "string", ValueError())
 ]
 
 @pytest.mark.parametrize("pay, pr, lvl, bonus", fine_data)

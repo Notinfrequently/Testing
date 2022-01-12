@@ -5,5 +5,5 @@
 
 
 ### Запустить тестирование рассчета:
-`python -m pytest test_lab.py`
+`python3 -m pytest test_lab.py`
 
